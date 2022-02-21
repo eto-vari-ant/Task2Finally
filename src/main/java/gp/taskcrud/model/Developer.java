@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -37,4 +38,20 @@ public class Developer {
     @Schema(description = "Unique email of the developer")
     private String email;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+        Developer developer = (Developer) obj;
+        if((!developer.getEmail().equals(email)||(!developer.getName().equals(name)))){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, email);
+    }
 }
